@@ -81,4 +81,3 @@ except Exception, e:
     driver.save_screenshot('screenshot.png')
     driver.close()
     print "Error happened " + str(e.message)
-
