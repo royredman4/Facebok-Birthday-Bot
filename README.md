@@ -1,8 +1,12 @@
 This is a general program that says a happy birthday message to a user whose birthday it is that day. If there are no birthdays that day, the program will close. This program requires a file named "Birthday Messages.txt" that would have each birthday message in there (each message is separated by a new line). It will also require a username and password, where you can manually input yourself if desired. 
 
-You may need to install the following dependencies first before running the program: 
+You may need to install the following packages first before running the program: 
 
 Selenium 
+
+PhantomJS (http://phantomjs.org/download.html)
+
+Chromedriver (https://pypi.python.org/pypi/chromedriver_installer)
 
 Once that is installed, you may run it as you please. 
 
@@ -14,4 +18,4 @@ and uncomment the line before it ("driver = webdriver.Chrome()").
 
 This will allow you to see the program running using the chrome browser. 
 
-For the browsers, you will need to install PhantomJS (http://phantomjs.org/download.html) or Chromedriver (https://pypi.python.org/pypi/chromedriver_installer), based on which webbrowser you run. Enjoy!
+ENJOY!!
