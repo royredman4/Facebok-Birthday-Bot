@@ -71,7 +71,6 @@ def Post_Messages(driver):
     # Gets the names of the birthday people
     Birthday_names = driver.find_elements_by_xpath('//*[@id="events_card_list"]/article[1]/div/div/ul/div/a/div/p[1]')
 
-
     # Keeps track of people who have passed away, but still have active accounts
     fptr = open("Passed_Away.txt")
     Passed = fptr.read().strip('\n').splitlines()
