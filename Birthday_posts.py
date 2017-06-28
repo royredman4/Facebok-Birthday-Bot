@@ -72,8 +72,22 @@ def Post_Messages(driver):
     # Gets the names of the birthday people
     Birthday_names = driver.find_elements_by_xpath('//*[@id="events_card_list"]/article[1]/div/div/ul/div/a/div/p[1]')
 
+    # Remove later!!!
+    Birthday_names = ['Timothy Kim', 'Lex Luthor', 'Joseph Charles Forgette']
+
+    # Keeps track of people who have passed away, but still have active accounts
+    fptr = open("Passed_Away.txt")
+    Passed = fptr.read().strip('\n').splitlines()
+    fptr.close()
+
+    # Identifies any of the people who passed away have birthdays today
+    indexes = [i for i, x in enumerate(Birthday_names) if x in Passed]
+    
     # Sends a birthday post for every user that has there birthday today
     for i in range(1, len(Birthday_names)+1):
+        # If they passed away, avoid giving them a birthday note
+        if (i-1 in indexes):
+            continue
         formpath = '//*[@id="events_card_list"]/article[1]/div/div/ul/div[%d]/div/div/form/table/tbody/tr/td[1]/textarea' %i
         driver.find_element_by_xpath(formpath).send_keys(GetRandomMessage() + Keys.TAB + Keys.ENTER)
 
