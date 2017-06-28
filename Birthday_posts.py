@@ -1,5 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 import random
@@ -9,7 +8,7 @@ from os.path import expanduser
 Messages = []
 random.seed()
 
-headers = { 'Accept':'*/*',
+headers = {'Accept':'*/*',
     'Accept-Encoding':'gzip, deflate, sdch',
     'Accept-Language':'en-US,en;q=0.8',
     'Cache-Control':'max-age=0',
@@ -19,9 +18,13 @@ headers = { 'Accept':'*/*',
 
 def Facebook_Login():
     global headers
+
+    # Identifies which browswer is being used
     #driver = webdriver.Chrome()
-    driver = webdriver.PhantomJS(desired_capabilities = headers)
+    driver = webdriver.PhantomJS(desired_capabilities=headers)
     #driver.set_window_size(1366, 768)
+
+    # uses the login website and logs into facebook
     driver.get('https://www.facebook.com/login')
 
     location = expanduser('~/.facebook')
@@ -43,7 +46,7 @@ def Facebook_Login():
 def GetMessageList():
     global Messages
     msg = open("Birthday Messages.txt", 'r')
-    Messages.extend( msg.read().strip('\n').splitlines())
+    Messages.extend(msg.read().strip('\n').splitlines())
 
 
 def GetRandomMessage():
@@ -55,6 +58,8 @@ def Post_Messages(driver):
 
     sleep(4)
     driver.get("https://m.facebook.com/birthdays/")
+
+    # If there are birthdays today, then it will continue, otherwise, it will exit
     try:
         notification = driver.find_element_by_xpath("//*[contains(text(), 'Today')]")
         print "Notifications are " + str(notification)
@@ -64,12 +69,15 @@ def Post_Messages(driver):
         driver.save_screenshot('screenshot.png')
         exit()
 
+    # Gets the names of the birthday people
     Birthday_names = driver.find_elements_by_xpath('//*[@id="events_card_list"]/article[1]/div/div/ul/div/a/div/p[1]')
-    
+
+    # Sends a birthday post for every user that has there birthday today
     for i in range(1, len(Birthday_names)+1):
-        formpath = '//*[@id="events_card_list"]/article[1]/div/div/ul/div[i]/div/div/form/table/tbody/tr/td[1]/textarea'
+        formpath = '//*[@id="events_card_list"]/article[1]/div/div/ul/div[%d]/div/div/form/table/tbody/tr/td[1]/textarea' %i
         driver.find_element_by_xpath(formpath).send_keys(GetRandomMessage() + Keys.TAB + Keys.ENTER)
-    
+
+
 try:
     GetMessageList()
     driver = Facebook_Login()
