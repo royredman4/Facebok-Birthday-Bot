@@ -55,7 +55,6 @@ def GetRandomMessage():
     
     
 def Post_Messages(driver):
-
     sleep(4)
     driver.get("https://m.facebook.com/birthdays/")
 
@@ -71,9 +70,6 @@ def Post_Messages(driver):
 
     # Gets the names of the birthday people
     Birthday_names = driver.find_elements_by_xpath('//*[@id="events_card_list"]/article[1]/div/div/ul/div/a/div/p[1]')
-
-    # Remove later!!!
-    Birthday_names = ['Timothy Kim', 'Lex Luthor', 'Joseph Charles Forgette']
 
     # Keeps track of people who have passed away, but still have active accounts
     fptr = open("Passed_Away.txt")
